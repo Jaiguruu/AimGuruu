@@ -1,0 +1,33 @@
+{
+    "session_name": "GuruuAim_Session",
+    "total_shots": 4,
+    "total_score": 31.9,
+    "average_score": 7.97,
+    "group_size_mm": 15.49,
+    "shots": [
+        {
+            "shot": 1,
+            "x": 3.39,
+            "y": 0.24,
+            "score": 9.5
+        },
+        {
+            "shot": 2,
+            "x": -11.96,
+            "y": 2.32,
+            "score": 5.5
+        },
+        {
+            "shot": 3,
+            "x": 1.93,
+            "y": 8.84,
+            "score": 7.0
+        },
+        {
+            "shot": 4,
+            "x": -0.59,
+            "y": -2.34,
+            "score": 9.9
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "session_name": "Test_Session_001",
+    "total_shots": 3,
+    "total_score": 19.9,
+    "average_score": 6.63,
+    "group_size_mm": 29.15,
+    "shots": [
+        {
+            "shot": 1,
+            "x": 0.0,
+            "y": 0.0,
+            "score": 10.9
+        },
+        {
+            "shot": 2,
+            "x": 5.0,
+            "y": -5.0,
+            "score": 7.9
+        },
+        {
+            "shot": 3,
+            "x": -20.0,
+            "y": 10.0,
+            "score": 1.1
+        }
+    ]
+}
