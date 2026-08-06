@@ -35,7 +35,7 @@ An FDE doesn't get to say "it works on my machine" — they own the outcome for 
 
 ## 5. Naming What's Still Lab-Grade, Not Field-Grade
 
-Part of the FDE discipline is being the one who says "this isn't ready for the next site" before someone else discovers it the hard way. Honestly assessed against `ARCHITECTURE.md` §8 and `PITCH.md` §4:
+Part of the FDE discipline is being the one who says "this isn't ready for the next site" before someone else discovers it the hard way. Honestly assessed against `ARCHITECTURE.md` §4 and `PITCH.md` §4:
 
 - No accounts or multi-athlete separation — fine for one shooter, would immediately break at a second "site" (a club with six athletes sharing one machine).
 - No live-fire correlation — SCATT's entry-level product already does this; it's a named, real gap, not a hidden one.

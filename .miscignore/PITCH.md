@@ -10,34 +10,22 @@
 
 ## 1. The Problem — With Real Numbers
 
-Electronic shot-tracking trainers — the two names that come up in every conversation about this are **SCATT** (Russian-made, the de facto standard for dry-fire training) and **SIUS** (Swiss-made, ISSF's official competition-timing/target partner) — let a shooter dry-fire indoors and see exactly where each shot would have landed, with a live trace of the barrel's movement before, during, and after the trigger break. Actual current pricing, checked against the vendors' own sites:
+*(Full sourced breakdown — pricing table, participation data, market sizing — now lives in **[`PROBLEM_STATEMENT.md`](./PROBLEM_STATEMENT.md)**; summarized here, not restated.)*
 
-| System | Actual price | Source |
-|---|---|---|
-| SCATT Basic (entry, dry-fire + live-fire, 5–50m) | **$947** | scatt.com |
-| SCATT MX-02 | **$1,851** | scatt.com |
-| SCATT MX-W2 (wireless, dry- and live-fire) | **$1,999** (scattusa.com) – **$2,351** (scatt.com) | official SCATT sites, prices differ by distributor/region |
-| SIUS HS10 + SIUSLANE (home system) | **~$2,000** | siususa.com |
-| SIUS HS10 / LS10 (competition-grade, historical quotes) | **$3,357 / $5,857** | TargetTalk forum, SIUS is otherwise "tailor-made" pricing on request |
+Electronic shot-tracking trainers — **SCATT** (Russian-made, the de facto standard for dry-fire training) and **SIUS** (Swiss-made, ISSF's official competition-timing/target partner) — let a shooter dry-fire indoors and see exactly where each shot would have landed. Verified current pricing runs **$947–$2,351 for SCATT** and **~$2,000–$5,857+ for SIUS** — a real $950–$6,000+ range, not a flat "$3–8k." That range sits against a large, well-documented population that can't clear it: ISSF's 163 member federations across 149 countries, and in the U.S. alone an estimated ~250,000 youth in CMP-affiliated 3-position air rifle.
 
-**So the real range is roughly $950–$6,000+, not a flat "$3–8k."** The low end (SCATT Basic) is genuinely reachable for a serious individual; the gap AimGuruu actually closes is between "$0, using a webcam or phone you already own" and "$950 minimum for any dedicated electronic trainer at all" — which matters most for the buyer who can't clear that first $950, not the one comparing $2,000 vs $6,000.
-
-**Who that buyer actually is, with real participation data:**
-- **ISSF** (the sport's global governing body) has **163 member federations across 149 countries** — a global, not niche, sport.
-- In the U.S. alone, the **Civilian Marksmanship Program (CMP)** sanctioned **228 state/regional Three-Position Air Rifle competitions for over 16,500 junior competitors** in a recent season, and an estimated **~250,000 youth** participate in 3-position air rifle nationally (mostly through CMP-affiliated clubs and JROTC) — a large base of juniors training on tight or no personal equipment budgets.
-- **NCAA rifle**, by contrast, is a small elite tier: **30 varsity programs across 28 institutions**, with only 8 teams / 48 individual shooters at the actual NCAA championship — useful context for how narrow the "already has access to pro equipment" tier really is.
-- The broader **shooting sports equipment market** is sized at **$36.5B (2023) → $53.9B (2030), 5.8% CAGR** by Grand View Research; a narrower "shooting sports equipment" segment definition from a second publisher puts it at **$3.2B (2024) → $5.1B (2033), 5.5% CAGR** — the two numbers use different scope definitions (one is broad including firearms/ammunition, the other narrower), cited separately rather than reconciled, because reconciling them would require the underlying methodology, not something a two-line citation should paper over.
-
-**AimGuruu's actual claim:** not "as good as a $6,000 SIUS system" — it doesn't claim that, and shouldn't (see §4). The claim is "closes the $0-to-$950 gap for the ~250,000-strong junior/CMP-adjacent population and the much larger recreational base who currently have no electronic feedback loop at all," using hardware they already own.
+**AimGuruu's actual claim:** not "as good as a $6,000 SIUS system" (see §4 below for exactly where SCATT still wins). The claim is closing the $0-to-$950 gap for that population, using hardware they already own.
 
 ## 2. Who This Is For Today — and Who It Isn't Yet
 
-| Persona | Fits today? | Why |
-|---|---|---|
-| **The Priced-Out Competitor** — junior/collegiate ISSF or CMP-affiliated air-rifle shooter, part of that ~250,000-strong U.S. 3PAR youth population | **Yes** | The current single-user, single-machine build is exactly this athlete's training setup. |
-| **The Home Hobbyist** — casual airgun/dry-fire enthusiast | **Yes** | Same technical fit; different motivation, relevant to how the free/paid tiers below should be framed. |
-| **The Club/Academy Coach** — manages a squad of 6–15 athletes | **Not yet — Phase 2** | Needs accounts and per-athlete data separation, which don't exist today. This is the single highest-value near-term expansion. |
-| **The Federation / Talent-ID Program** — standardized analytics across locations, the kind ISSF's 163 federations or CMP's national network could plausibly want | **Not yet — Phase 3, aspirational** | Needs a real multi-tenant backend. Long-horizon, not a near-term claim. |
+*(Canonical version, reused verbatim: **[`TARGET_PERSONAS.md`](./TARGET_PERSONAS.md)**.)*
+
+| Persona | Fits today? |
+|---|---|
+| **The Priced-Out Competitor** — junior/collegiate ISSF or CMP-affiliated air-rifle shooter | **Yes** |
+| **The Home Hobbyist** — casual airgun/dry-fire enthusiast | **Yes** |
+| **The Club/Academy Coach** — manages a squad of 6–15 athletes | **Not yet — Phase 2** |
+| **The Federation / Talent-ID Program** — standardized analytics across locations | **Not yet — Phase 3, aspirational** |
 
 Being upfront about this split is a feature of this pitch, not a weakness: it shows exactly which investment unlocks which customer, rather than overclaiming what a solo-built MVP already does.
 
@@ -52,7 +40,7 @@ flowchart LR
     E --> F["An AI Coach explains what to fix,<br/>in plain language, after every session"]
 ```
 
-*(Engineering detail behind each box is in `ARCHITECTURE.md` §3–§5.)*
+*(Engineering detail behind each box is in `HLD.md`, `LLD.md`, and `DATA_FLOW.md`.)*
 
 ## 4. SCATT vs. AimGuruu — What the Gap Actually Is
 
@@ -61,10 +49,10 @@ This is the section that matters most for credibility: naming the real gap preci
 | Dimension | SCATT (verified) | AimGuruu (today) | The actual gap |
 |---|---|---|---|
 | **Tracking hardware** | A dedicated optical/IR sensor (30–56g) mounted directly on the gun barrel (most models); the MX-02 model instead uses a camera aimed at the target — architecturally the closest thing to AimGuruu in SCATT's own lineup | A generic webcam or phone (via IP-Webcam), camera fixed off-gun, aimed at a printed ArUco target sheet | AimGuruu needs zero dedicated hardware; SCATT's non-MX-02 models need a sensor physically fitted to the specific gun |
-| **Shot detection** | A microphone *built into the gun-mounted sensor*, registering the trigger click at point-blank range | A room-placed microphone using rolling-baseline transient-ratio detection (§4.2 of `ARCHITECTURE.md`) | Same underlying principle (acoustic click detection) — SCATT's mic sits millimetres from the source and gets a cleaner signal; AimGuruu's ambient mic has to work harder to reject room noise |
+| **Shot detection** | A microphone *built into the gun-mounted sensor*, registering the trigger click at point-blank range | A room-placed microphone using rolling-baseline transient-ratio detection (`LLD.md` §2) | Same underlying principle (acoustic click detection) — SCATT's mic sits millimetres from the source and gets a cleaner signal; AimGuruu's ambient mic has to work harder to reject room noise |
 | **Trajectory visualization** | Color-coded time-phased trace — SCATT's own documentation describes green (settling)/yellow (~1s before the shot)/red (post-shot follow-through), with a 4th (blue) phase noted in at least one version of the software | Color-coded trace: green (>1s, approach) / yellow (0.2–1s, hold) / red (≤0.2s, trigger break) | **Not a gap — a validation point.** AimGuruu converged on essentially the same visual language independently; the code's own comments cite "SCATT Standard" explicitly. Worth stating plainly in an interview or pitch: this wasn't guessed, it was built to match the industry convention. |
 | **Live-fire support** | Yes — SCATT Basic is rated for dry-fire *and* live-fire, indoors or outdoors, up to 50m | Dry-fire only; there is no design today for correlating a tracked aim point with an actual bullet's point of impact | Real, currently unaddressed gap — tracked in the roadmap (§6) |
-| **Precision transparency** | Not publicly disclosed — sampling rate and angular accuracy don't appear in SCATT's public FAQ, product pages, or user manual for the MX-W2 | Every parameter is open and in source: ~66Hz UI tick, ArUco sub-pixel corner refinement, homography via RANSAC (`ARCHITECTURE.md` §4.1, §9) | Neither a win nor a loss — a genuine difference in posture: SCATT is a closed, presumably well-calibrated proprietary instrument; AimGuruu is a fully inspectable pipeline whose actual precision hasn't been independently benchmarked against a reference system yet |
+| **Precision transparency** | Not publicly disclosed — sampling rate and angular accuracy don't appear in SCATT's public FAQ, product pages, or user manual for the MX-W2 | Every parameter is open and in source: ~66Hz UI tick, ArUco sub-pixel corner refinement, homography via RANSAC (`LLD.md` §1, `ARCHITECTURE.md` §5 Appendix) | Neither a win nor a loss — a genuine difference in posture: SCATT is a closed, presumably well-calibrated proprietary instrument; AimGuruu is a fully inspectable pipeline whose actual precision hasn't been independently benchmarked against a reference system yet |
 | **Software maturity** | Decades-old product line; SCATT Basic software runs cross-platform (Windows/Mac/Linux, plus a mobile "SCATT Expert" app); the more advanced SCATT Pro software is Windows-only (Mac requires a VM); supports up to 4 shooters simultaneously from one PC | Single-machine, single-session desktop app; one AI-generated coaching report, no training-program library, no elite-shooter benchmark comparisons | Real, large gap — SCATT's software depth is the product of years of iteration; closing it is a roadmap item, not a weekend fix |
 | **Price** | $947–$2,351 (SCATT) to $2,000–$5,857+ (SIUS), verified above | ~$0 incremental hardware cost for anyone who owns a webcam or phone | This is the actual pitch — not "better," cheaper by a wide, verifiable margin |
 | **Track record** | Established manufacturer, used across many national federations for years | Solo-built, pre-revenue software project | Real gap in trust/credibility that no amount of feature-matching closes by itself — addressed in the roadmap through packaging, testing, and (eventually) third-party validation, not by claiming otherwise |
@@ -91,7 +79,7 @@ timeline
     Phase 3 — Close the SCATT gap : Live-fire correlation : Independently benchmarked precision : Training-program library : Optional offline local AI model
 ```
 
-- **Phase 0 — Hygiene** *(cheap, fast, table stakes)*: closes real, already-identified gaps — an unprotected API key path, a dependency mismatch, hardcoded config, `print()`-only diagnostics. Full list in `ARCHITECTURE.md` §8.
+- **Phase 0 — Hygiene** *(cheap, fast, table stakes)*: closes real, already-identified gaps — an unprotected API key path, a dependency mismatch, hardcoded config, `print()`-only diagnostics. Full list in `ARCHITECTURE.md` §4.
 - **Phase 1 — Reliability** *(unlocks: trustworthy releases)*: a real test suite and CI mean features can ship without re-manually-verifying the vision and scoring math every time; a packaged installer means the Home Hobbyist and Priced-Out Competitor personas can actually install this without a Python environment.
 - **Phase 2 — Scale** *(unlocks: the Club/Academy Coach persona and the Pro/Club pricing tiers above)*: turns a single-player tool into a multi-seat product with recurring revenue.
 - **Phase 3 — Close the SCATT gap directly** *(unlocks: credible comparison against real competitors, not just price)*: this phase is now scoped from §4's actual findings, not a generic wishlist — live-fire point-of-impact correlation, a published precision benchmark against a reference system (closing the "precision transparency" row honestly, in either direction), a training-program library comparable to SCATT Pro's, and an offline local-model option to remove the free-tier LLM dependency named directly in §1's software-maturity row.
@@ -108,4 +96,4 @@ timeline
 
 ## Appendix
 
-Full engineering due diligence lives in **[`ARCHITECTURE.md`](./ARCHITECTURE.md)**. The build narrative lives in **[`FDE_WALKTHROUGH.md`](./FDE_WALKTHROUGH.md)**.
+Full engineering due diligence starts at **[`ARCHITECTURE.md`](./ARCHITECTURE.md)** (which indexes `PROBLEM_STATEMENT.md`, `TARGET_PERSONAS.md`, `HLD.md`, `LLD.md`, `USER_WORKFLOW.md`, and `DATA_FLOW.md`). The build narrative lives in **[`FDE_WALKTHROUGH.md`](./FDE_WALKTHROUGH.md)**, and the case against building this a different way lives in **[`ALTERNATIVE_ARCHITECTURES.md`](./ALTERNATIVE_ARCHITECTURES.md)**.
