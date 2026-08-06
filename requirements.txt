@@ -1,0 +1,8 @@
+opencv-python
+opencv-contrib-python
+numpy
+pyaudio
+pillow
+customtkinter
+requests
+python-dotenv

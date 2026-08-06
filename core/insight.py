@@ -3,6 +3,10 @@ import glob
 import json
 import numpy as np
 import requests
+from dotenv import load_dotenv
+
+# Load environment variables from .env file (if present)
+load_dotenv()
 
 def analyze_scatt_json(session_data):
     if "shots" not in session_data or not session_data["shots"]:
@@ -48,8 +52,9 @@ def analyze_scatt_json(session_data):
 class InsightGenerator:
     def __init__(self, history_dir="history"):
         self.history_dir = history_dir
-        self.ollama_url = "http://localhost:11434/api/generate"
-        self.model = "phi3"
+        self.api_url = "https://openrouter.ai/api/v1/chat/completions"
+        self.model = "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
+        self.api_key = os.environ.get("OPENROUTER_API_KEY", "")
 
     def get_latest_session_data(self):
         if not os.path.exists(self.history_dir):
@@ -89,22 +94,33 @@ You are an elite Olympic-level Shooting Coach AI. Analyze the session parameters
             
         prompt = self.build_prompt(metrics)
         
-        # SLM Inference via Ollama API
+        # SLM Inference via OpenRouter API
+        if not self.api_key:
+            return "Error: OPENROUTER_API_KEY environment variable not set.\n\n" + self.fallback_insight(metrics)
+            
         try:
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "HTTP-Referer": "https://github.com/AimGuruu",
+                "X-Title": "AimGuruu",
+                "Content-Type": "application/json"
+            }
             payload = {
                 "model": self.model,
-                "prompt": prompt,
+                "messages": [
+                    {"role": "user", "content": prompt}
+                ],
                 "stream": False
             }
-            # Fast timeout because we don't want to hang the UI thread if Ollama isn't running
-            response = requests.post(self.ollama_url, json=payload, timeout=2.0)
+            # Slightly longer timeout for external cloud API
+            response = requests.post(self.api_url, headers=headers, json=payload, timeout=5.0)
             if response.status_code == 200:
                 data = response.json()
-                return data.get("response", "Error parsing SLM response.")
+                return data["choices"][0]["message"]["content"]
             else:
-                return self.fallback_insight(metrics)
+                return f"API Error ({response.status_code}): {response.text}\n\n" + self.fallback_insight(metrics)
         except requests.exceptions.RequestException:
-            # Graceful Fallback if Ollama SLM is not running
+            # Graceful Fallback if OpenRouter is unreachable
             return self.fallback_insight(metrics)
 
     def fallback_insight(self, metrics):
